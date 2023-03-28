@@ -33,8 +33,8 @@ const targetClient = new DynamoDBClient({
 });
 
 // Specify table names and other options
-const sourceTableName = "source-table";
-const targetTableName = "target-table";
+const sourceTableName = "source-dynamodb-table-name";
+const targetTableName = "target-dynamodb-table-name";
 const batchSize = 25; // Number of items to process at a time
 
 // Define function to transfer data
