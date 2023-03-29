@@ -14,7 +14,6 @@ import {
   AssumeRoleCommandInput,
   STS,
 } from "@aws-sdk/client-sts";
-import { defaultProvider } from "@aws-sdk/credential-provider-node";
 
 // Assume a role using the sourceCreds
 async function assume(
