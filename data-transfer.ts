@@ -43,11 +43,11 @@ const sourceCredentials = fromIni({
 });
 
 // Set up credentials for target AWS account
-const targetProfile = "FFv2-DEV"; // target-profile-name
+const targetProfile = "ffv2-dev"; // target-profile-name
 const targetRegion = "eu-central-1"; // can be eu-central-1 or such
 const targetCredentials = fromIni({
   profile: targetProfile,
-  mfaCodeProvider: async () => "312450", // enable this line if we need mfa code for this profile
+  // mfaCodeProvider: async () => "312450", // enable this line if we need mfa code for this profile
 });
 
 // Set up DynamoDB clients for both accounts
@@ -57,13 +57,7 @@ const sourceClient = new DynamoDBClient({
 });
 const targetClient = new DynamoDBClient({
   region: targetRegion,
-  credentials: defaultProvider({
-    roleAssumer: () =>
-      assume(targetCredentials, {
-        RoleArn: "arn:aws:iam::037408918343:role/G-Admin",
-        RoleSessionName: "G-Admin",
-      }),
-  }),
+  credentials: targetCredentials,
 });
 
 // Specify table names and other options
@@ -104,20 +98,3 @@ transferData()
   .catch((error) => {
     console.error("Error transferring data:", error);
   });
-
-/*
-
-  defaultProvider({
-    roleAssumer: (sourceCredentials, {
-      RoleArn: "arn:aws:iam::037408918343:role/G-Admin",
-      RoleSessionName: "G-Admin",
-    }) => assume()
-  }),
-
-  credentials: async () =>
-    assume(targetCredentials, {
-      RoleArn: "arn:aws:iam::037408918343:role/G-Admin",
-      RoleSessionName: "G-Admin",
-    }),
-
-  */

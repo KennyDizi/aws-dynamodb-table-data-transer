@@ -104,20 +104,3 @@ transferData()
   .catch((error) => {
     console.error("Error transferring data:", error);
   });
-
-/*
-
-  defaultProvider({
-    roleAssumer: (sourceCredentials, {
-      RoleArn: "arn:aws:iam::037408918343:role/G-Admin",
-      RoleSessionName: "G-Admin",
-    }) => assume()
-  }),
-
-  credentials: async () =>
-    assume(targetCredentials, {
-      RoleArn: "arn:aws:iam::037408918343:role/G-Admin",
-      RoleSessionName: "G-Admin",
-    }),
-
-  */
