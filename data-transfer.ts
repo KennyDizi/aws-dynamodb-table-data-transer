@@ -7,7 +7,7 @@ import {
 import { fromIni } from "@aws-sdk/credential-provider-ini";
 
 // Set up credentials for source AWS account
-const sourceProfile = "source-profile-name";
+const sourceProfile = "default"; // source-profile-name
 const sourceRegion = "eu-central-1"; // can be us-east-1 or such
 const sourceCredentials = fromIni({
   profile: sourceProfile,
@@ -15,11 +15,11 @@ const sourceCredentials = fromIni({
 });
 
 // Set up credentials for target AWS account
-const targetProfile = "target-profile-name";
-const targetRegion = "us-west-2"; // can be eu-central-1 or such
+const targetProfile = "FFv2-DEV"; // target-profile-name
+const targetRegion = "eu-central-1"; // can be eu-central-1 or such
 const targetCredentials = fromIni({
   profile: targetProfile,
-  // mfaCodeProvider: async () => "", // enable this line if we need mfa code for this profile
+  mfaCodeProvider: async () => "6403177", // enable this line if we need mfa code for this profile
 });
 
 // Set up DynamoDB clients for both accounts
@@ -33,8 +33,8 @@ const targetClient = new DynamoDBClient({
 });
 
 // Specify table names and other options
-const sourceTableName = "source-dynamodb-table-name";
-const targetTableName = "target-dynamodb-table-name";
+const sourceTableName = "single-dynamodb-table-ffv2-stg-stack";
+const targetTableName = "single-dynamodb-table-ffv2-new-dev-stack";
 const batchSize = 25; // Number of items to process at a time
 
 // Define function to transfer data
