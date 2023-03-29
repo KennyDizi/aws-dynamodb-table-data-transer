@@ -5,33 +5,6 @@ import {
   AttributeValue,
 } from "@aws-sdk/client-dynamodb";
 import { fromIni } from "@aws-sdk/credential-provider-ini";
-import {
-  AwsCredentialIdentity,
-  AwsCredentialIdentityProvider,
-} from "@aws-sdk/types";
-import {
-  AssumeRoleCommand,
-  AssumeRoleCommandInput,
-  STS,
-} from "@aws-sdk/client-sts";
-
-// Assume a role using the sourceCreds
-async function assume(
-  sourceCreds: AwsCredentialIdentity | AwsCredentialIdentityProvider,
-  params: AssumeRoleCommandInput
-): Promise<AwsCredentialIdentity> {
-  const sts = new STS({ credentials: sourceCreds });
-  const result = await sts.send(new AssumeRoleCommand(params));
-  // const result = await sts.assumeRole(params);
-  if (!result.Credentials) {
-    throw new Error("unable to assume credentials - empty credential object");
-  }
-  return {
-    accessKeyId: String(result.Credentials.AccessKeyId),
-    secretAccessKey: String(result.Credentials.SecretAccessKey),
-    sessionToken: result.Credentials.SessionToken,
-  };
-}
 
 // Set up credentials for source AWS account
 const sourceProfile = "default"; // source-profile-name
