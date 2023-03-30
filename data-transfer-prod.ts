@@ -41,8 +41,9 @@ const batchSize = 25; // Number of items to process at a time
 async function transferData() {
   console.log("Starting to transfert data...");
   let lastEvaluatedKey: Record<string, AttributeValue> | undefined;
-  console.log(`Transfering data with lastEvaluatedKey: ${lastEvaluatedKey}`);
+
   do {
+    console.log(`Transfering data with lastEvaluatedKey: ${lastEvaluatedKey}`);
     const scanParams = {
       TableName: sourceTableName,
       ExclusiveStartKey: lastEvaluatedKey,
